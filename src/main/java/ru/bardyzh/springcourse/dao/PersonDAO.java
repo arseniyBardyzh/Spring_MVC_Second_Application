@@ -7,14 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 @Component
 public class PersonDAO {
+    private static int PEOPLE_COUNT;
+
     public List<Person> people;
 
     {
         people = new ArrayList<>();
-        people.add(new Person(1,"Tom"));
-        people.add(new Person(2,"Bill"));
-        people.add(new Person(3,"Jack"));
-        people.add(new Person(4,"Mark"));
+        people.add(new Person(++PEOPLE_COUNT,"Tom"));
+        people.add(new Person(++PEOPLE_COUNT,"Bill"));
+        people.add(new Person(++PEOPLE_COUNT,"Jack"));
+        people.add(new Person(++PEOPLE_COUNT,"Mark"));
     }
 
     public List<Person> index(){
@@ -23,5 +25,10 @@ public class PersonDAO {
 
     public Person show(int id){
         return people.stream().filter(person -> person.getId() == id).findAny().orElse(null);
+    }
+
+    public void save(Person person){
+        person.setId(++PEOPLE_COUNT);
+        people.add(person);
     }
 }
